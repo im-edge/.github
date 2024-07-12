@@ -17,6 +17,27 @@ for allowing us to finally realize something we dreamed of for a long time.
 > these libraries are highly opinionated, others are very generic. We'll ship related documentation for
 > the generic ones, as they might be useful in other projects too.
 
+Project
+-------
+
+IMEdge Node is the core project, and ships our working horse, the background daemon.
+
+| Project                                                                | Packagist / Version                                                                                  |
+|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| [IMEdge Node](https://github.com/im-edge/)<br />The IMEdge node daemon | [![Version](https://poser.pugx.org/imedge/node/version)](https://packagist.org/packages/imedge/node) |
+
+Features
+--------
+
+IMEdge node core features and examples for custom addon features.
+
+| Feature                                                                                                  | Packagist / Version                                                                                                            |
+|----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| [Inventory](https://github.com/im-edge/inventory-feature)<br />Our central (DB) inventory adapter        | [![Version](https://poser.pugx.org/imedge/inventory-feature/version)](https://packagist.org/packages/imedge/inventory-feature) |
+| [Snmp](https://github.com/im-edge/snmp-feature)<br />SNMP feature                                        | [![Version](https://poser.pugx.org/imedge/snmp-feature/version)](https://packagist.org/packages/imedge/snmp-feature)           |
+| [Ssh](https://github.com/im-edge/ssh-feature)<br />SSH key scan feature, might be used be related checks | [![Version](https://poser.pugx.org/imedge/ssh-feature/version)](https://packagist.org/packages/imedge/ssh-feature)             |
+| [Tcp](https://github.com/im-edge/tcp-feature)<br />provides TCP checks, sample feature                   | [![Version](https://poser.pugx.org/imedge/tcp-feature/version)](https://packagist.org/packages/imedge/tcp-feature)             |
+
 Libraries
 ---------
 
@@ -53,15 +74,3 @@ Libraries mostly related to the Web UI, therefore still supporting PHP 7.4.
 | Library                                                                                            | Coding Standards<br />(PSR12)                                                                                                                                                         | Unit Tests                                                                                                                                                          | Static Analysis<br />[![PHPStan Level 5](https://img.shields.io/badge/PHPStan-level%205-brightgreen.svg?style=flat)](https://phpstan.org/)                                         | Version<br />(Packagist)                                                                                     |
 |----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
 | [RrdGraph](https://github.com/im-edge/rrdtool)<br />Parser and Renderer for RRD graph instructions | [![Coding Standards](https://github.com/im-edge/rrdgraph/actions/workflows/CodingStandards.yml/badge.svg)](https://github.com/im-edge/rrdgraph/actions/workflows/CodingStandards.yml) | [![Unit Tests](https://github.com/im-edge/rrdgraph/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/im-edge/rrdgraph/actions/workflows/UnitTests.yml) | [![Static Analysis](https://github.com/im-edge/rrdgraph/actions/workflows/StaticAnalysis.yml/badge.svg)](https://github.com/im-edge/rrdgraph/actions/workflows/StaticAnalysis.yml) | [![Version](https://poser.pugx.org/imedge/rrdgraph/version)](https://packagist.org/packages/imedge/rrdgraph) |
-
-Features
---------
-
-IMEdge node core features and examples for custom addon features.
-
-| Feature                                                                                                  | Packagist / Version                                                                                                            |
-|----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| [Inventory](https://github.com/im-edge/inventory-feature)<br />Our central (DB) inventory adapter        | [![Version](https://poser.pugx.org/imedge/inventory-feature/version)](https://packagist.org/packages/imedge/inventory-feature) |
-| [Snmp](https://github.com/im-edge/snmp-feature)<br />SNMP feature                                        | [![Version](https://poser.pugx.org/imedge/snmp-feature/version)](https://packagist.org/packages/imedge/snmp-feature)           |
-| [Ssh](https://github.com/im-edge/ssh-feature)<br />SSH key scan feature, might be used be related checks | [![Version](https://poser.pugx.org/imedge/ssh-feature/version)](https://packagist.org/packages/imedge/ssh-feature)             |
-| [Tcp](https://github.com/im-edge/tcp-feature)<br />provides TCP checks, sample feature                   | [![Version](https://poser.pugx.org/imedge/tcp-feature/version)](https://packagist.org/packages/imedge/tcp-feature)             |
