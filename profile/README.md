@@ -22,9 +22,9 @@ Project
 
 IMEdge Node is the core project, and ships our working horse, the background daemon.
 
-| Project                                                                | Packagist / Version                                                                                  |
-|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| [IMEdge Node](https://github.com/im-edge/)<br />The IMEdge node daemon | [![Version](https://poser.pugx.org/imedge/node/version)](https://packagist.org/packages/imedge/node) |
+| Project                                                                    | Packagist / Version                                                                                  |
+|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| [IMEdge Node](https://github.com/im-edge/node)<br />The IMEdge node daemon | [![Version](https://poser.pugx.org/imedge/node/version)](https://packagist.org/packages/imedge/node) |
 
 Features
 --------
