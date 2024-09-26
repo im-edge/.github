@@ -39,6 +39,17 @@ IMEdge node core features and examples for custom addon features.
 | [Ssh](https://github.com/im-edge/ssh-feature)<br />SSH key scan feature, might be used be related checks | [![Version](https://poser.pugx.org/imedge/ssh-feature/version)](https://packagist.org/packages/imedge/ssh-feature)             |
 | [Tcp](https://github.com/im-edge/tcp-feature)<br />provides TCP checks, sample feature                   | [![Version](https://poser.pugx.org/imedge/tcp-feature/version)](https://packagist.org/packages/imedge/tcp-feature)             |
 
+Icinga Web Module
+-----------------
+
+This module provides the IMEdge module for Icinga Web 2. Currently, this module
+allows to control local and remote IMEdge nodes, is proxying graph requests,
+and provides access to our inventory database.
+
+| Project                                                                                         | Packagist / Version                                                                                                                          |
+|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| [IMEdge Web](https://github.com/im-edge/icingaweb2-module-imedge)<br /> module for Icinga Web 2 | [![Version](https://poser.pugx.org/imedge/icingaweb2-module-imedge/version)](https://packagist.org/packages/imedge/icingaweb2-module-imedge) |
+
 Libraries
 ---------
 
