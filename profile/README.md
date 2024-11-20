@@ -17,8 +17,298 @@ for allowing us to finally realize something we dreamed of for a long time.
 > these libraries are highly opinionated, others are very generic. We'll ship related documentation for
 > the generic ones, as they might be useful in other projects too.
 
-Project
--------
+A little preview to get your mouth watering
+-------------------------------------------
+
+We created and presented a proof of concept in 2023, a first usable public alpha version in 2024, and
+this project is going to shine in 2025. This document is being updated at irregular intervals, shows what has already been
+built, and where we're heading to.
+
+### Administrative Oversight
+
+Enabling the IMEdge Web Module enhances the Icinga Web UI in various ways. As an administrator, you'll
+obviously be able to inspect your IMEdge nodes health, and you're provided with shortcuts for the most
+used remote operations. You can restart nodes, deal with their features, start or stop network listeners
+and establish encrypted connections to new nodes.
+
+![IMEdge nodes](img/01_imedge-nodes.png)
+
+For those who want more: you're being granted full access to all local and remote RPC methods, directly
+from the Web UI. You can sign certificates, create, tweak and delete remote metric stores, or execute
+a specific graphing instruction on a sub-process running on a remote node.
+
+### Inventory
+
+The Inventory is where everything is being tied together. IMEdge is a distributed platform, Metrics
+and more are being stored and processed on remoted nodes. Still, configuration data is structured,
+normalized and stored in a central relational database. When you're for example looking at some
+interface traffic graph, the central node knows where to find the data. However, the number crunching
+and rendering happens on that remote node.
+
+![Main Inventory Dashboard](img/21_main_dashboard.png)
+
+You'll reach the various parts of your Inventory via a (constantly growing) central Navigation
+Dashboard. From here you manage your Credentials, Devices, Sites and more.
+
+![Inventory - Add SNMP device](img/22_inventory_add_device.png)
+
+When manually adding devices, you assign them to a specific edge node, and pick its lifecycle
+and environment. Those properties are meant to deal with certain everyday-conditions in a meaningful
+way, without having to fiddle around with tons of flags and settings.
+
+![Inventory - Devices](img/23_inventory_devices.png)
+
+Your device will be enriched with vendor information, and when using public IPs, a nice flag gives
+a first idea about where to find this device. All this context information is being fetched from
+your local database. You'll find some more related details in the "Data" chapter below.
+
+The inventory also provides a bunch of visualization tools, we created some very useful and informative
+widgets:
+
+![Inventory - Port rendering](img/24_inventory_port_rendering.png)
+
+A rendered network port will show its utilization with its background color, and its LEDs have a
+meaning. They can show, whether a port is running in half-duplex mode, and whether Spanning Tree
+has disabled the port. A port which is down has a black background and red pins, but if it is
+administratively down (which is usually fine), it is just gray.
+
+But there is not only RJ45, we implemented all known registered jacks (4P4C, 6P2C, 6P4C, 6P6C),
+CFP (2/4/8) cages, OSFP, QSFP, SFP and XFP - more to come.
+
+In case your device provides them, the Inventory not only contains sensor data, but it also
+learns how your devices entities are structured and nested:
+
+![Inventory - Sensors](img/25_inventory_sensors.png)
+
+Currently, we synchronize also remote sensor values to the central database, but we might decide
+to stop doing so, once we implemented related health checks.
+
+![Inventory - Entities](img/26_inventory_entities.png)
+
+Device entities however will always remain part of the Inventory.
+
+Of course the Inventory also contains lots of information related to your network interfaces,
+their current state, STP information and more:
+
+![Inventory - Interfaces](img/26a_inventory_interfaces.png)
+
+In case you're wondering where those metrics/graphs are coming from: please check the Metrics
+section below.
+
+### Active SNMP monitoring
+
+Even when adding 1000 devices at once, within less than 10 seconds you'll be shown first details
+and reachability information. The device is being inventoried, and all fitting monitoring scenarios
+will be applied. There will be options to customize things in the future, but right now we are
+focussing on a very simple idea: we want you to forget about a device, once you activated it. No
+need to tweak hundreds of knobs, it will just work.
+
+For your device, many periodic scenarios will run in parallel, and with different schedules. You
+should normally not need to care about them. Inventarisation tasks kick off early, but are being
+triggered regularly at a slower pace. Interface traffic is being fetched every 15 seconds, for all
+of your interfaces, error counters, interface state and packet type statistics only every 60 seconds.
+
+Interface configuration is being polled only every 10 minutes, but it's being triggered immediately
+(with an intentional delay) in case your device has rebooted.
+
+These are just a few examples, there is much more to this. You'll get a carefully tuned system,
+that should fit all kinds of environments, from your small home-lab up to large corporations, being
+distributed over multiple continents. A lot of love has been dedicated to many, many details - based
+on decades of network monitoring experience.
+
+### Interactive SNMP Scenarios
+
+While period scenarios are usually fully automated, there are still a lot of things you can
+accomplish in an interactive way. There are many predefined SNMP scenarios, which can be
+triggered on-demand, like fetching information about the installed software:
+
+![Installed Software](img/41_live-software.png)
+
+Of course this is something we plan to synchronise to the DB sooner or later, so there might then
+no longer be a need for this. Currently running processes are a much better example of something
+one might want to fetch on demand:
+
+![Process List](img/42_live_processes.png)
+
+The BGP scenario is a good example of how we work when implementing new SNMP-based features. First
+we implement a related SNMP scenario, which can immediately be used in an interactive way:
+
+![43_live_bgp.png](img/43_live_bgp.png)
+
+In this example it is already being enriched with context information (Autonomous System
+names) from your DB. Next will be synchronizing peer configurations to the Inventory, same
+for the peering state - and we'll tag interesting counters for regular polling.
+
+No need to do any manual configuration: as soon as we completed this task, you'll see historic
+BGP message counters for all your peerings.
+
+### SNMP MIB Browser
+
+An SNMP MIB Browser makes part of the IMEdge project, and while currently being a standalone
+module, it will soon be integrated into the central inventory component. As this summary shows,
+we intensively tested it with a lot of valid and not-so-valid MIB files:
+
+![SNMP MIB Browser - Overview](img/27_inventory_mibs_overview.png)
+
+Please check its [current repository](https://github.com/Thomas-Gelf/icingaweb2-module-mibs/blob/master/README.md)
+for more related screenshots. When combined with IMEdge, it offers some otherwise hidden features,
+and allows to interactively walk SNMP devices via remote pollers:
+
+![SNMP MIB Browser - Walk](img/28_inventory_mibs_walk.png)
+
+Here another one, showing your walk next to the related MIB tree:
+
+![SNMP MIB Browser - Walk full](img/29_inventory_mibs_walk_full.png)
+
+### Observability - Internal Metrics
+
+IMEdge does a lot of hard work, and many things in parallel. It's important for us to have a
+deep understanding of what is going in internally, and that's why we're exporting many internal
+counters in various places.
+
+![Observability - SNMP metrics](img/31_observability_snmp_metrics.png)
+
+The screenshot shows just a small excerpt, we're looking at the rate of received OIDs per
+scheduled SNMP scenario. This greatly helped us improve our scheduling logic, as having
+load distributed evenly is one of our main goals.
+
+![Observability - CPU metrics](img/32_observability_cpu.png)
+
+Additionally, also some system metrics are being collected from every IMEdge monitoring
+node.
+
+### Metrics
+
+Speaking about Metrics, of course it's all about the Metrics, when it goes to Monitoring.
+Let's start with the most important ones, when it goes to network monitoring: Interface
+traffic:
+
+![52_metrics_interfaces.png](img/52_metrics_interfaces.png)
+
+As you can see, we show not only the average interface usage in the selected period. When
+showing aggregated data, peaks (maximum and minimum ones) are still being shown. Next to
+the graph, the total amount of traffic is being summarized in a human-readable way, and
+the most requested (or configured) percentiles are also available right there.  Right below,
+there are packet counters and eventual errors.
+
+All images are interactive, and responsive. You have a large screen? You should benefit
+from your devices capabilities. The next screenshot shows a traffic graph in fullscreen,
+with dark mode active:
+
+![55_darkmode_fullscreen.png](img/55_darkmode_fullscreen.png)
+
+Unfortunately those screenshots are unable to show how fast the image rendering takes
+place, because that's very impressive. The timing information on this screenshot shows
+what is possible with a simple image, while being looked up in the central database, and
+being rendered and fetched from a remote node:
+
+![Metrics Performance](img/56_metrics_performance.png)
+
+### Mobile Layout - Responsiveness
+
+A lot of effort has been invested into being able to provide you with a very satisfying mobile
+experience.
+
+![Metrics - Mobile Layout](img/53_metrics_mobile.png)
+
+A zoomed fullscreen traffic gives a good experience not only on a large screen, it's a
+perfect fit on your mobile device too:
+
+![54_metrics_fullscreen.png](img/54_metrics_fullscreen.png)
+
+Those dashed lines represent the 95th and 99th percentile in the chosen time period.
+
+### Data: valuable context information
+
+No need for remote lookups, no cloud service: the IMEdge inventory allows you to synchronize
+a bunch of public sources into your very own local database. MAC address vendors, GEO data,
+IP address lookups, Autonomous Systems and more. All of them with a lot of dedication and
+attention to details, as this MAC address context information example page showcases:
+
+![MAC address lookup](img/61_data_macaddresses.png)
+
+Wherever a MAC address is shown, you will be made aware of whether it is a Multicast address,
+encoded information like Virtual Router identifiers, the related device vendor - or whether
+you're seeing a private/random MAC address.
+
+![GEO data](img/62_data_geo.png)
+
+Our DB schema foresees geographical data in various places, allows to import regions and towns
+to your very own DB. Streets and houses are not to be found in your local DB, as that would be
+a ton of data. However, geolocation lookup for a given address is available for lookup via a
+public or self-hosted OpenStreetMap-based service. Your DB will contain your configured addresses
+with their corresponding geolocation.
+
+### Integrations
+
+#### Icinga Director Import Source
+
+![Icinga Director Import Source](img/71_integration_director.png)
+
+#### Context information for Icinga modules
+
+The IMEdge Inventory carries a lot of valuable information, and we want to make this
+available to other Icinga modules too. As a first sample integration we allowed vSphereDB
+to make use of our MAC address / vendor lookup. As a result of this, it's network section
+is now also able to provide context information like we've seen above:
+
+![Integrations - vSphereDB MAC addresses](img/73_integrations_vspheredb.png)
+
+Same goes true not only for VMware hosts, but also for Virtual Machines:
+
+![Integrations - vSphereDB VM MAC addresses](img/73_integrations_vspheredb_vms.png)
+
+#### Metrics for Icinga
+
+Is the Metrics Feature for IMEdge features only? Of course not, we're shipping an Icinga
+PerfData writer and an implementation of the Icinga Web Grapher Hook:
+
+![Icinga Grapher](img/72_integration_grapher.png)
+
+
+Sneak Peek: upcoming features
+-----------------------------
+### SNMPv3
+
+SNMPv3 has been placed on hold, after we successfully implemented and tested all official
+and (known) vendor-specific authentication methods:
+
+![SNMPv3 configuration](img/81_snmpv3_config.png)
+
+But while developing the encryption part, we got a very deep understanding of SNMPv3
+encryption, and decided to restructure parts of the poller in order to achieve a huge
+performance advantage in this field. As other tasks have been prioritized higher, this
+has been postponed - but will be addressed soon.
+
+### Microsoft Teams integration
+
+While we're not a big fan of closed and cloud only software, this doesn't mean
+that we won't talk with them. Half a year ago, we implemented a pretty powerful
+working prototype of an MS Teams integration, so this might be one of the features
+we're going to lift, once we got our problem handling logic straight.
+
+![Microsoft Teams integration](img/93_preview_teams.png)
+
+While the error message on this notification is obviously fake, the rest of it is
+real. This notification has successfully been sent to MS Teams, and provided some
+interactive controls, that could be used via Teams.
+
+### Interactive Template Editor
+
+Not a high priority, as we ship fitting templates for all SNMP scenarios that are
+currently available. However, we already worked on this - and sooner or later it
+will be a thing:
+
+![Template Editor](img/94_template_editor.png)
+
+
+Related Repositories
+====================
+
+Below you can find a list of all GitHub repositories developed for the IMEdge project,
+and their current state.
+
+### IMEdge Node
 
 IMEdge Node is the core project, and ships our working horse, the background daemon.
 
@@ -26,8 +316,7 @@ IMEdge Node is the core project, and ships our working horse, the background dae
 |----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
 | [IMEdge Node](https://github.com/im-edge/node)<br />The IMEdge node daemon | [![Version](https://poser.pugx.org/imedge/node/version)](https://packagist.org/packages/imedge/node) |
 
-Features
---------
+### Node Features
 
 IMEdge node core features and examples for custom addon features.
 
@@ -39,8 +328,7 @@ IMEdge node core features and examples for custom addon features.
 | [Ssh](https://github.com/im-edge/ssh-feature)<br />SSH key scan feature, might be used be related checks | [![Version](https://poser.pugx.org/imedge/ssh-feature/version)](https://packagist.org/packages/imedge/ssh-feature)             |
 | [Tcp](https://github.com/im-edge/tcp-feature)<br />provides TCP checks, sample feature                   | [![Version](https://poser.pugx.org/imedge/tcp-feature/version)](https://packagist.org/packages/imedge/tcp-feature)             |
 
-Icinga Web Module
------------------
+### Icinga Web Module
 
 This module provides the IMEdge module for Icinga Web 2. Currently, this module
 allows to control local and remote IMEdge nodes, is proxying graph requests,
@@ -50,10 +338,9 @@ and provides access to our inventory database.
 |-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
 | [IMEdge Web](https://github.com/im-edge/icingaweb2-module-imedge)<br /> module for Icinga Web 2 | [![Version](https://poser.pugx.org/imedge/icingaweb2-module-imedge/version)](https://packagist.org/packages/imedge/icingaweb2-module-imedge) |
 
-Libraries
----------
+### Node Libraries
 
-Related libraries, growing list.
+Libraries developed for IMEdge Node and it's features.
 
 | Library                                                                                                             | Coding Standards<br />(PSR12)                                                                                                                                                                             | Unit Tests                                                                                                                                                                              | Static Analysis<br />[![PHPStan Level 9](https://img.shields.io/badge/PHPStan-level%209-brightgreen.svg?style=flat)](https://phpstan.org/)                                                             | Version<br />(Packagist)                                                                                                         |
 |---------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
@@ -81,8 +368,7 @@ Related libraries, growing list.
 | [Snmp](https://github.com/im-edge/snmp)<br />SNMP Implementation                                                    | [![Coding Standards](https://github.com/im-edge/snmp/actions/workflows/CodingStandards.yml/badge.svg)](https://github.com/im-edge/snmp/actions/workflows/CodingStandards.yml)                             | [![Unit Tests](https://github.com/im-edge/snmp/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/im-edge/snmp/actions/workflows/UnitTests.yml)                             | [![Static Analysis](https://github.com/im-edge/snmp/actions/workflows/StaticAnalysis.yml/badge.svg)](https://github.com/im-edge/snmp/actions/workflows/StaticAnalysis.yml)                             | [![Version](https://poser.pugx.org/imedge/snmp/version)](https://packagist.org/packages/imedge/snmp)                             |
 | [systemd](https://github.com/im-edge/systemd)<br />systemd integration                                              | [![Coding Standards](https://github.com/im-edge/systemd/actions/workflows/CodingStandards.yml/badge.svg)](https://github.com/im-edge/systemd/actions/workflows/CodingStandards.yml)                       | [![Unit Tests](https://github.com/im-edge/systemd/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/im-edge/systemd/actions/workflows/UnitTests.yml)                       | [![Static Analysis](https://github.com/im-edge/systemd/actions/workflows/StaticAnalysis.yml/badge.svg)](https://github.com/im-edge/systemd/actions/workflows/StaticAnalysis.yml)                       | [![Version](https://poser.pugx.org/imedge/systemd/version)](https://packagist.org/packages/imedge/systemd)                       |
 
-Shared Libraries
-----------------
+### Shared Libraries
 
 Libraries used by node daemon/features and Web UI, therefore still supporting PHP 7.4.
 
@@ -93,10 +379,9 @@ Libraries used by node daemon/features and Web UI, therefore still supporting PH
 | [RrdStructure](https://github.com/im-edge/rrd-structure)<br />Some basic RRD file structure related classes | [![Coding Standards](https://github.com/im-edge/rrd-structure/actions/workflows/CodingStandards.yml/badge.svg)](https://github.com/im-edge/rrd-structure/actions/workflows/CodingStandards.yml)   | [![Unit Tests](https://github.com/im-edge/rrd-structure/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/im-edge/rrd-structure/actions/workflows/UnitTests.yml)   | [![Static Analysis](https://github.com/im-edge/rrd-structure/actions/workflows/StaticAnalysis.yml/badge.svg)](https://github.com/im-edge/rrd-structure/actions/workflows/StaticAnalysis.yml)   | [![Version](https://poser.pugx.org/imedge/rrd-structure/version)](https://packagist.org/packages/imedge/rrd-structure)   |
 | [Svg](https://github.com/im-edge/svg)<br />SVG helpers                      | [![Coding Standards](https://github.com/im-edge/svg/actions/workflows/CodingStandards.yml/badge.svg)](https://github.com/im-edge/svg/actions/workflows/CodingStandards.yml)       | [![Unit Tests](https://github.com/im-edge/svg/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/im-edge/svg/actions/workflows/UnitTests.yml)       | [![Static Analysis](https://github.com/im-edge/svg/actions/workflows/StaticAnalysis.yml/badge.svg)](https://github.com/im-edge/svg/actions/workflows/StaticAnalysis.yml)       | [![Version](https://poser.pugx.org/imedge/svg/version)](https://packagist.org/packages/imedge/svg)       |
 
-Web Libraries
--------------
+### Web Libraries
 
-Libraries for the Web UI, therefore still supporting PHP 7.4.
+Libraries developed for the Web UI, therefore still supporting PHP 7.4.
 
 | Library                                                                                                                       | Coding Standards<br />(PSR12)                                                                                                                                                                             | Unit Tests                                                                                                                                                                              | Static Analysis<br />[![PHPStan Level 5](https://img.shields.io/badge/PHPStan-level%205-brightgreen.svg?style=flat)](https://phpstan.org/)                                                             | Version<br />(Packagist)                                                                                                         |
 |-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
