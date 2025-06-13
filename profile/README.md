@@ -142,6 +142,36 @@ for the peering state - and we'll tag interesting counters for regular polling.
 No need to do any manual configuration: as soon as we completed this task, you'll see historic
 BGP message counters for all your peerings.
 
+### SNMPv3
+
+We implemented and tested all official and also all well-known vendor-specific authentication
+and privacy (encryption) methods:
+
+#### Authentication Methods
+
+* MD5: required in [RFC 3414](https://datatracker.ietf.org/doc/html/rfc3414)
+* SHA (SHA1): optional in [RFC 3414](https://datatracker.ietf.org/doc/html/rfc3414)
+* SHA-224: optional in [RFC 7860](https://datatracker.ietf.org/doc/html/rfc7860) with 128bit HMAC
+* SHA-256: required in [RFC 7860](https://datatracker.ietf.org/doc/html/rfc7860) with 192bit HMAC
+* SHA-384: optional in [RFC 7860](https://datatracker.ietf.org/doc/html/rfc7860) with 256bit HMAC
+* SHA-512: suggested in [RFC 7860](https://datatracker.ietf.org/doc/html/rfc7860) with 384bit HMAC
+
+#### Privacy / Encryption Methods
+
+* DES: in CBC mode, defined in [RFC 3414](https://datatracker.ietf.org/doc/html/rfc3414)
+* 3-DES: Triple-DES EDE in "Outside" CBC mode, mostly used by Cisco, defined in [draft-reeder-snmpv3-usm-3desede-00](https://datatracker.ietf.org/doc/html/draft-reeder-snmpv3-usm-3desede-00)
+* AES-128: in CFB mode, required in [RFC 3826](https://datatracker.ietf.org/doc/html/rfc3826) with "Blumenthal" Key localization
+* AES-192: in CFB mode, as of [draft-blumenthal-aes-usm-04](https://datatracker.ietf.org/doc/html/draft-blumenthal-aes-usm-04) with "Blumenthal" Key localization
+* AES-192: in CFB mode, "Cisco variant", therefore named AES-192-C, as of [draft-reeder-snmpv3-usm-3desede-00](https://datatracker.ietf.org/doc/html/draft-reeder-snmpv3-usm-3desede-00) with "Reeder" Key localization
+* AES-256: in CFB mode, as of [draft-blumenthal-aes-usm-04](https://datatracker.ietf.org/doc/html/draft-blumenthal-aes-usm-04) with "Blumenthal" Key localization
+* AES-256: in CFB mode, "Cisco variant", therefore named AES-256-C, as of [draft-reeder-snmpv3-usm-3desede-00](https://datatracker.ietf.org/doc/html/draft-reeder-snmpv3-usm-3desede-00) with "Reeder" Key localization
+
+We're using system-provided MD5/SHA hashing methods, and encryption as provided by OpenSSL.
+Everything related to (pre-IV), Key generation and Salt exchange has been implemented from
+scratch.
+
+![SNMPv3 configuration](img/81_snmpv3_config.png)
+
 ### SNMP MIB Browser
 
 An SNMP MIB Browser makes part of the IMEdge project, and while currently being a standalone
@@ -268,18 +298,6 @@ PerfData writer and an implementation of the Icinga Web Grapher Hook:
 
 Sneak Peek: upcoming features
 -----------------------------
-### SNMPv3
-
-SNMPv3 has been placed on hold, after we successfully implemented and tested all official
-and (known) vendor-specific authentication methods:
-
-![SNMPv3 configuration](img/81_snmpv3_config.png)
-
-But while developing the encryption part, we got a very deep understanding of SNMPv3
-encryption, and decided to restructure parts of the poller in order to achieve a huge
-performance advantage in this field. As other tasks have been prioritized higher, this
-has been postponed - but will be addressed soon.
-
 ### Microsoft Teams integration
 
 While we're not a big fan of closed and cloud only software, this doesn't mean
