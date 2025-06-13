@@ -190,6 +190,7 @@ Here another one, showing your walk next to the related MIB tree:
 
 ![SNMP MIB Browser - Walk full](img/29_inventory_mibs_walk_full.png)
 
+Different colors in the tree highlight different access levels.
 Conceptual tables are supported and shown as such:
 
 ![SNMP MIB Browser - Tables](img/271_inventory_mibs_table.png)
