@@ -190,6 +190,27 @@ Here another one, showing your walk next to the related MIB tree:
 
 ![SNMP MIB Browser - Walk full](img/29_inventory_mibs_walk_full.png)
 
+Conceptual tables are supported and shown as such:
+
+![SNMP MIB Browser - Tables](img/271_inventory_mibs_table.png)
+
+As you can see, table indizes must not be the very first property in a row.
+It's also possible to flip the table orientation:
+
+![SNMP MIB Browser - Flipped Tables](img/272_inventory_mibs_table_flipped.png)
+
+Values modified between one scan and the next one are being highlighted:
+
+![SNMP MIB Browser - Modified Values](img/273_inventory_mibs_modified_values.png)
+
+Sometimes values making part of compound table indexes are not directly accessible:
+
+![SNMP MIB Browser - Not accessible](img/274_inventory_mibs_not_accessible.png)
+
+This MIB browser hides such complexity, and happily shows the output table as expected:
+
+![SNMP MIB Browser - Not accessible](img/275_inventory_mibs_combined_index_not_accessible.png)
+
 ### Observability - Internal Metrics
 
 IMEdge does a lot of hard work, and many things in parallel. It's important for us to have a
