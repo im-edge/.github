@@ -352,21 +352,21 @@ and their current state.
 
 IMEdge Node is the core project, and ships our working horse, the background daemon.
 
-| Project                                                                    | Packagist / Version                                                                                  |
-|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| [IMEdge Node](https://github.com/im-edge/node)<br />The IMEdge node daemon | [![Version](https://poser.pugx.org/imedge/node/version)](https://packagist.org/packages/imedge/node) |
+| Project                                                                    | GitHub Release                                                                                                                             | Packagist / Version                                                                                  |
+|----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| [IMEdge Node](https://github.com/im-edge/node)<br />The IMEdge node daemon | [![Version](https://img.shields.io/github/v/release/im-edge/node?color=blue&sort=semver)](https://github.com/im-edge/node/releases/latest) | [![Version](https://poser.pugx.org/imedge/node/version)](https://packagist.org/packages/imedge/node) |
 
 ### Node Features
 
 IMEdge node core features and examples for custom addon features.
 
-| Feature                                                                                                  | Packagist / Version                                                                                                            |
-|----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| [Inventory](https://github.com/im-edge/inventory-feature)<br />Our central (DB) inventory adapter        | [![Version](https://poser.pugx.org/imedge/inventory-feature/version)](https://packagist.org/packages/imedge/inventory-feature) |
-| [Metrics](https://github.com/im-edge/metrics-feature)<br />Metrics feature                               | [![Version](https://poser.pugx.org/imedge/metrics-feature/version)](https://packagist.org/packages/imedge/metrics-feature)     |
-| [Snmp](https://github.com/im-edge/snmp-feature)<br />SNMP feature                                        | [![Version](https://poser.pugx.org/imedge/metrics-feature/version)](https://packagist.org/packages/imedge/metrics-feature)     |
-| [Ssh](https://github.com/im-edge/ssh-feature)<br />SSH key scan feature, might be used be related checks | [![Version](https://poser.pugx.org/imedge/ssh-feature/version)](https://packagist.org/packages/imedge/ssh-feature)             |
-| [Tcp](https://github.com/im-edge/tcp-feature)<br />provides TCP checks, sample feature                   | [![Version](https://poser.pugx.org/imedge/tcp-feature/version)](https://packagist.org/packages/imedge/tcp-feature)             |
+| Feature                                                                                                  | GitHub Release                                                                                                                                                       | Packagist / Version                                                                                                            |
+|----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| [Inventory](https://github.com/im-edge/inventory-feature)<br />Our central (DB) inventory adapter        | [![Version](https://img.shields.io/github/v/release/im-edge/inventory-feature?color=blue&sort=semver)](https://github.com/im-edge/inventory-feature/releases/latest) | [![Version](https://poser.pugx.org/imedge/inventory-feature/version)](https://packagist.org/packages/imedge/inventory-feature) |
+| [Metrics](https://github.com/im-edge/metrics-feature)<br />Metrics feature                               | [![Version](https://img.shields.io/github/v/release/im-edge/metrics-feature?color=blue&sort=semver)](https://github.com/im-edge/metrics-feature/releases/latest)     | [![Version](https://poser.pugx.org/imedge/metrics-feature/version)](https://packagist.org/packages/imedge/metrics-feature)     |
+| [Snmp](https://github.com/im-edge/snmp-feature)<br />SNMP feature                                        | [![Version](https://img.shields.io/github/v/release/im-edge/snmp-feature?color=blue&sort=semver)](https://github.com/im-edge/snmp-feature/releases/latest)           | [![Version](https://poser.pugx.org/imedge/metrics-feature/version)](https://packagist.org/packages/imedge/metrics-feature)     |
+| [Ssh](https://github.com/im-edge/ssh-feature)<br />SSH key scan feature, might be used be related checks | -                                                                                                                                                                    | [![Version](https://poser.pugx.org/imedge/ssh-feature/version)](https://packagist.org/packages/imedge/ssh-feature)             |
+| [Tcp](https://github.com/im-edge/tcp-feature)<br />provides TCP checks, sample feature                   | [![Version](https://img.shields.io/github/v/release/im-edge/tcp-feature?color=blue&sort=semver)](https://github.com/im-edge/tcp-feature/releases/latest)             | [![Version](https://poser.pugx.org/imedge/tcp-feature/version)](https://packagist.org/packages/imedge/tcp-feature)             |
 
 ### Icinga Web Module
 
@@ -374,9 +374,9 @@ This module provides the IMEdge module for Icinga Web 2. Currently, this module
 allows to control local and remote IMEdge nodes, is proxying graph requests,
 and provides access to our inventory database.
 
-| Project                                                                                         | Packagist / Version                                                                                                                          |
-|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| [IMEdge Web](https://github.com/im-edge/icingaweb2-module-imedge)<br /> module for Icinga Web 2 | [![Version](https://poser.pugx.org/imedge/icingaweb2-module-imedge/version)](https://packagist.org/packages/imedge/icingaweb2-module-imedge) |
+| Project                                                                                         | GitHub Release                                                                                                                                                                     | Packagist / Version                                                                                                                          |
+|-------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| [IMEdge Web](https://github.com/im-edge/icingaweb2-module-imedge)<br /> module for Icinga Web 2 | [![Version](https://img.shields.io/github/v/release/im-edge/icingaweb2-module-imedge?color=blue&sort=semver)](https://github.com/im-edge/icingaweb2-module-imedge/releases/latest) | [![Version](https://poser.pugx.org/imedge/icingaweb2-module-imedge/version)](https://packagist.org/packages/imedge/icingaweb2-module-imedge) |
 
 ### Node Libraries
 
