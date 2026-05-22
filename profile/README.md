@@ -256,6 +256,23 @@ being rendered and fetched from a remote node:
 
 ![Metrics Performance](img/56_metrics_performance.png)
 
+### Grafana integration
+
+We're shipping sample Dashboards, showcasing what is possible using IMEdge as a
+DataSource from Grafana. Those Dashboards have been crafted carefully, to reflect
+a similar look and feel with similar functionality. Not only averages, but also
+aggregated min/max levels are being presented for the given period:
+
+![Grafana Dashboard](img/571_metrics_grafana_dashboard.png)
+
+Devices and interfaces can be chosen via simple select boxes, time controls
+behave as expected:
+
+![Grafana Controls](img/572_metrics_grafana_selection.png)
+
+Feel free to use those examples as an inspiration when creating your very own
+shiny custom dahboards.
+
 ### Mobile Layout - Responsiveness
 
 A lot of effort has been invested into being able to provide you with a very satisfying mobile
