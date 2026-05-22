@@ -259,9 +259,9 @@ being rendered and fetched from a remote node:
 ### Grafana integration
 
 We're shipping sample Dashboards, showcasing what is possible using IMEdge as a
-DataSource from Grafana. Those Dashboards have been crafted carefully, to reflect
-a similar look and feel with similar functionality. Not only averages, but also
-aggregated min/max levels are being presented for the given period:
+Grafana DataSource. Those Dashboards have been crafted carefully, to reflect a
+similar look and feel with similar functionality. Not only averages, but also
+aggregated min/max levels are being presented for every given period:
 
 ![Grafana Dashboard](img/571_metrics_grafana_dashboard.png)
 
@@ -271,7 +271,7 @@ behave as expected:
 ![Grafana Controls](img/572_metrics_grafana_selection.png)
 
 Feel free to use those examples as an inspiration when creating your very own
-shiny custom dahboards.
+shiny custom dashboards.
 
 ### Mobile Layout - Responsiveness
 
